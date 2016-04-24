@@ -1,5 +1,10 @@
 # Raphaël: Cross-browser vector graphics the easy way.
 
+## For use with Songwise
+Dev work is done on the `hb-master` branch.
+
+---
+
 Visit the library website for more information: ~~[http://raphaeljs.com](http://raphaeljs.com/)~~ [http://dmitrybaranovskiy.github.io/raphael/](http://dmitrybaranovskiy.github.io/raphael/)
 
 ## Quickstart guide
