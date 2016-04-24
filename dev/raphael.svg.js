@@ -584,6 +584,9 @@ define(["./raphael.core"], function(R) {
             node = el.node,
             fontSize = node.firstChild ? toInt(R._g.doc.defaultView.getComputedStyle(node.firstChild, E).getPropertyValue("font-size"), 10) : 10;
 
+        // Address bug where fontSize is NaN
+        if (isNaN(fontSize)) fontSize = toInt(a['font-size'], 10);
+
         if (params[has]("text")) {
             a.text = params.text;
             while (node.firstChild) {
