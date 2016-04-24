@@ -1,23 +1,5 @@
-// ┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐ \\
-// │ Raphaël 2.2.0 - JavaScript Vector Library                                                             │ \\
-// ├───────────────────────────────────────────────────────────────────────────────────────────────────────┤ \\
-// │ Copyright © 2008-2016 Dmitry Baranovskiy (http://raphaeljs.com)                                       │ \\
-// │ Copyright © 2008-2016 Sencha Labs (http://sencha.com)                                                 │ \\
-// ├───────────────────────────────────────────────────────────────────────────────────────────────────────┤ \\
-// │ Licensed under the MIT (https://github.com/DmitryBaranovskiy/raphael/blob/master/license.txt) license.│ \\
-// └───────────────────────────────────────────────────────────────────────────────────────────────────────┘ \\
-
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define("Raphael", [], factory);
-	else if(typeof exports === 'object')
-		exports["Raphael"] = factory();
-	else
-		root["Raphael"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+var Raphael =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -6447,6 +6429,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            node = el.node,
 	            fontSize = node.firstChild ? toInt(R._g.doc.defaultView.getComputedStyle(node.firstChild, E).getPropertyValue("font-size"), 10) : 10;
 
+	        // Address bug where fontSize is NaN
+	        if (isNaN(fontSize)) fontSize = toInt(a['font-size'], 10);
+
 	        if (params[has]("text")) {
 	            a.text = params.text;
 	            while (node.firstChild) {
@@ -6474,6 +6459,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        el._.dirty = 1;
 	        var bb = el._getBBox(),
 	            dif = a.y - (bb.y + bb.height / 2);
+
+	        // Address issue: when dif = 0, things were displaced vertically (why??)
+	        if (dif != 0) { dif = dif/2; }
+
 	        dif && R.is(dif, "finite") && $(tspans[0], {dy: dif});
 	    },
 	    getRealNode = function (node) {
@@ -8288,6 +8277,4 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }
-/******/ ])
-});
-;
+/******/ ]);

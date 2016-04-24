@@ -8,7 +8,8 @@ module.exports = function(grunt) {
     grunt.initConfig({
         // Metadata.
         pkg: pkg,
-        banner: grunt.file.read("dev/copy.js").replace(/@VERSION/, pkg.version),
+        // banner: grunt.file.read("dev/copy.js").replace(/@VERSION/, pkg.version),
+        banner: grunt.file.read("dev/banner.txt"),
         // Task configuration.
         uglify: {
             options: {
@@ -59,6 +60,17 @@ module.exports = function(grunt) {
                     "dev/raphael.amd.js"
                 ]
             }
+        },
+        webpack: {
+            dist: {
+                // webpack options
+                entry: "./dev/raphael.amd.js",
+                output: {
+                    path: "./",
+                    filename: "<%= pkg.name %>.js",
+                    library: "Raphael"
+                }
+            }
         }
     });
 
@@ -66,7 +78,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-replace");
+    grunt.loadNpmTasks('grunt-webpack');
 
     // Default task.
     grunt.registerTask("default", ["concat", "replace", "uglify"]);
+    grunt.registerTask("build:dist", ["webpack:dist"]);
+
 };
