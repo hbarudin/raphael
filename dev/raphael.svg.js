@@ -614,6 +614,10 @@ define(["./raphael.core"], function(R) {
         el._.dirty = 1;
         var bb = el._getBBox(),
             dif = a.y - (bb.y + bb.height / 2);
+
+        // Address issue: when dif = 0, things were displaced vertically (why??)
+        if (dif != 0) { dif = dif/2; }
+
         dif && R.is(dif, "finite") && $(tspans[0], {dy: dif});
     },
     getRealNode = function (node) {
